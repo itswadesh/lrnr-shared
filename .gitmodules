@@ -1,3 +1,6 @@
 [submodule "gql"]
 	path = gql
 	url = https://github.com/itswadesh/lrnr-gql.git
+[submodule "lrnr-gql"]
+	path = lrnr-gql
+	url = https://github.com/itswadesh/lrnr-gql.git
