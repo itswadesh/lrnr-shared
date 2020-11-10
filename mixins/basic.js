@@ -1,5 +1,5 @@
 import { mapGetters } from 'vuex'
-import { typingTimeout } from "./../config";
+import { typingTimeout } from "./../../shared/config";
 
 export default {
   data: () => ({
