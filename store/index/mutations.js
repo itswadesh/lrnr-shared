@@ -29,17 +29,18 @@ export default {
     },
     setErr(state, e) {
         state.errors = []
+        let vm = this
         if (e.networkError){
             if (!e.networkError.result){
                 if (
                   e.networkError.message ==
                   'Unexpected token E in JSON at position 0'
                 )
-                this.$toast
+              vm.$toast &&  vm.$toast
                   .error('Unable to connect to server...')
-                  .goAway(300000)
+                  .goAway(3000)
                 else  state.errors.push('Server is down.')
-            }             
+            }
             else if (e.networkError.result && e.networkError.result.errors) {
               e.networkError.result.errors.map(({ message }, i) => {
                 state.errors.push(message)
@@ -51,7 +52,7 @@ export default {
         else if (e.graphQLErrors){ 
             if(e.graphQLErrors.length<1){
                 // state.errors.push('Server is down.')
-                this.$toast.error(message).goAway(300000)
+                vm.$toast.error(message).goAway(3000)
             }else{
                 e.graphQLErrors.map(({ message }, i) => {
                     state.errors.push(message)
@@ -62,9 +63,9 @@ export default {
         else{
             state.errors = [ e ]
         }
-        state.errors.map((message, i) => {
-            this.$toast.error(message).goAway(3000);
-        })
+        // state.errors.map((message, i) => {
+        //     this.$toast.error(message).goAway(3000);
+        // })
         state.loading = false
         // console.error('err at store...', e.toString())
     }
