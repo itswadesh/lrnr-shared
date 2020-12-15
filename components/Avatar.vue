@@ -95,7 +95,7 @@ export default {
             fetchPolicy: 'no-cache',
           })
         ).data.fileUpload
-        images = images.map((o) => o.filename)
+        images = images.map((o) => o.url)
         if (!this.multi) {
           this.img = images[0]
           this.$emit('save', this.name, this.img)
