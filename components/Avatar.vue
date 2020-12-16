@@ -136,7 +136,7 @@ export default {
         this.img = ''
         await this.$apollo.mutate({
           mutation: deleteFile,
-          variables: { path: image },
+          variables: { url: image },
           fetchPolicy: 'no-cache',
         })
         this.$emit('remove', this.name)
