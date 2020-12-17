@@ -2,7 +2,7 @@
   <div class="relative">
     <div v-if="$apollo.loading">Loading...</div>
     <div
-      class="flex justify-center w-20 h-20 p-2 text-center text-gray-600 bg-gray-200 rounded-full hover:bg-gray-300"
+      class="flex justify-center w-20 h-20 text-center text-gray-600 bg-gray-200 rounded-full hover:bg-gray-300"
     >
       <div class="flex" v-if="img">
         <button
@@ -69,6 +69,7 @@ export default {
   },
   mounted() {
     this.img = this.image
+    console.log(this.name)
   },
   computed: {
     isInitial() {
@@ -131,6 +132,8 @@ export default {
       })
     },
     async deleteConfirmed(image) {
+      console.log(this.name, 'lllll')
+
       try {
         this.$store.commit('clearErr')
         this.img = ''
@@ -139,7 +142,9 @@ export default {
           variables: { url: image },
           fetchPolicy: 'no-cache',
         })
-        this.$emit('remove', this.name)
+        // this.$emit('remove', this.name)
+        console.log(this.name, 'kkkkkkkkk')
+        $nuxt.$emit('removeOptionImage', this.name)
       } catch (e) {
         this.$store.commit('setErr', e)
       } finally {
