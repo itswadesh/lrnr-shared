@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <!-- <div class="inline">
     <div v-if="$apollo.loading">Loading...</div>
     <div
       class="flex justify-center w-20 h-20 text-center text-gray-600 bg-gray-200 rounded-full hover:bg-gray-300"
@@ -31,6 +31,56 @@
         />
         <ImageIcon class="absolute cursor-pointer" />
       </form>
+    </div>
+  </div> -->
+
+  <div>
+    <div
+      @click="pickFile"
+      class="w-20 h-20 text-center text-gray-600 bg-gray-200 rounded-full"
+    >
+      <div class="flex" v-if="img">
+        <button
+          type="button"
+          @click="removeImage(img)"
+          class="absolute flex items-center justify-center w-8 h-8 ml-12 border rounded-full cursor-pointer hover:bg-gray-200"
+        >
+          <XIcon />
+        </button>
+        <img v-lazy="img" alt class="object-cover w-16 h-16 rounded-full" />
+      </div>
+
+      <div v-else class="flex items-center justify-center w-full h-full">
+        <ImageIcon class="inline cursor-pointer" />
+        <input
+          hidden
+          type="file"
+          name="photos"
+          ref="fileInput"
+          :disabled="isSaving"
+          @change="uploadPhoto"
+          accept="image/*"
+          class="w-full h-full rounded-full opacity-0 cursor-pointer"
+        />
+      </div>
+
+      <!-- <form
+        class="flex items-center justify-center w-full"
+        enctype="multipart/form-data"
+        novalidate
+        v-else
+      >
+        <input
+          multiple
+          type="file"
+          name="photos"
+          :disabled="isSaving"
+          @change="uploadPhoto"
+          accept="image/*"
+          class="w-full h-full rounded-full opacity-0 cursor-pointer"
+        />
+        <ImageIcon class="absolute cursor-pointer" />
+      </form> -->
     </div>
   </div>
 </template>
@@ -86,6 +136,9 @@ export default {
     },
   },
   methods: {
+    pickFile() {
+      if (!this.img) this.$refs.fileInput.click()
+    },
     async uploadPhoto({ target }) {
       try {
         this.$store.commit('clearErr')
