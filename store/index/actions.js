@@ -38,11 +38,12 @@ export default {
     console.error('nuxtServerInit',);
     await dispatch('fetch')
     await dispatch('auth/fetch')
-    // await dispatch('cart/fetch')
+    await dispatch('cart/fetch')
   },
   async nuxtClientInit({ dispatch }, { req }) { // Requred only for admin
     console.error('nuxtClientInit',);
     await dispatch('fetch')
     await dispatch('auth/fetch')
+    await dispatch('cart/fetch')
   },
 }
