@@ -8,6 +8,7 @@ import getOtp from './../../gql/user/getOtp.gql'
 import verifyOtp from './../../gql/user/verifyOtp.gql'
 import emailPassword from './../../gql/user/emailPassword.gql'
 import resetPassword from './../../gql/user/resetPassword.gql'
+import MYCART from '~/../shared/gql/cart/cart.gql'
 
 
 export default {
@@ -46,18 +47,48 @@ export default {
             commit('busy', false, { root: true })
         }
     },
+    //  async getCart({ commit, rootState }, variables) {
+
+    //     console.log("naman khurana")
+    //     try {
+    //         commit('clearErr', null, { root: true })
+    //         commit('busy', true, { root: true })
+    //         const data = (await this.app.apolloProvider.defaultClient.query({
+    //              query: MYCART, fetchPolicy: 'no-cache'
+    //         })).data
+    //         console.log(data,'sssssssss')
+    //         commit('setUser', data)
+    //         commit('clearErr', null, { root: true })
+    //                   console.log((this.$store.state.auth || {}).user, 'sssssssss')
+
+    //         return 
+    //     } catch (e) {
+    //         commit('setErr', e, { root: true })
+    //         console.log(data,'sssssssssssssssssssaaaaaaa    ')
+    //         throw e
+    //     } finally {
+    //         commit('busy', false, { root: true })
+    //     }
+    // },
     async verifyOtp({ commit, rootState }, variables) {
+
+        console.log("naman khurana")
         try {
             commit('clearErr', null, { root: true })
             commit('busy', true, { root: true })
             const data = (await this.app.apolloProvider.defaultClient.mutate({
                 mutation: verifyOtp, variables, fetchPolicy: 'no-cache'
             })).data.verifyOtp
+            console.log(data,'sssssssss')
             commit('setUser', data)
             commit('clearErr', null, { root: true })
+                      console.log((this.$store.state.auth || {}).user, 'sssssssss')
+
             return 
         } catch (e) {
             commit('setErr', e, { root: true })
+            console.log(e,'ssss')
+            this.$toast.error('In Correct OTP').goAway(2000)
             throw e
         } finally {
             commit('busy', false, { root: true })
