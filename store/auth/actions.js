@@ -82,7 +82,7 @@ export default {
             console.log(data,'sssssssss')
             commit('setUser', data)
             commit('clearErr', null, { root: true })
-                      console.log((this.$store.state.auth || {}).user, 'sssssssss')
+                    //   console.log((this.$store.state.auth || {}).user, 'sssssssss')
 
             return 
         } catch (e) {
